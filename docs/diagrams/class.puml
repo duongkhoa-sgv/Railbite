@@ -1,0 +1,168 @@
+@startuml RailbiteClass
+title Railbite — Domain Class Diagram
+
+skinparam classAttributeIconSize 0
+
+enum UserRole {
+  Passenger
+  Restaurant
+  DeliveryPerson
+}
+
+enum OrderStatus {
+  Pending
+  Approved
+  Rejected
+  Preparing
+  OutForDelivery
+  Delivered
+  Cancelled
+}
+
+enum TransactionType {
+  Credit
+  Debit
+}
+
+abstract class User {
+  +Guid Id
+  +string Name
+  +string Email
+  +string Phone
+  +string PasswordHash
+  +UserRole Role
+  +bool IsActive
+  +DateTime CreatedAt
+}
+
+class Passenger {
+  +string? Address
+}
+
+class Restaurant {
+  +string RestaurantName
+  +string? Address
+}
+
+class DeliveryPerson {
+  +string? VehicleNumber
+  +bool IsAvailable
+}
+
+User <|-- Passenger
+User <|-- Restaurant
+User <|-- DeliveryPerson
+
+class Category {
+  +Guid Id
+  +string Name
+  +string? Description
+  +bool IsActive
+}
+
+class Food {
+  +Guid Id
+  +string Name
+  +string? Description
+  +decimal Price
+  +string? ImageUrl
+  +int PreparationTimeMinutes
+  +bool IsAvailable
+}
+
+class Train {
+  +Guid Id
+  +string TrainNumber
+  +string TrainName
+}
+
+class TrainStop {
+  +Guid Id
+  +string StationName
+  +int StopOrder
+  +TimeSpan? ArrivalTime
+  +TimeSpan? DepartureTime
+  +bool IsDeliveryAvailable
+}
+
+class Cart {
+  +Guid Id
+  +DateTime CreatedAt
+}
+
+class CartItem {
+  +Guid Id
+  +int Quantity
+  +decimal UnitPrice
+}
+
+class Wallet {
+  +Guid Id
+  +decimal Balance
+}
+
+class Transaction {
+  +Guid Id
+  +decimal Amount
+  +TransactionType Type
+  +string? Description
+  +DateTime CreatedAt
+}
+
+class Ticket {
+  +Guid Id
+  +string PnrNumber
+  +string? Coach
+  +string? SeatNumber
+  +DateOnly TravelDate
+  +bool IsConfirmed
+  +DateTime CreatedAt
+}
+
+class Order {
+  +Guid Id
+  +string OrderNumber
+  +OrderStatus Status
+  +decimal TotalAmount
+  +string? DeliveryAddress
+  +string? Notes
+  +DateTime CreatedAt
+  +DateTime UpdatedAt
+}
+
+class OrderItem {
+  +Guid Id
+  +string FoodName
+  +decimal UnitPrice
+  +int Quantity
+}
+
+class Delivery {
+  +Guid Id
+  +DateTime AssignedAt
+  +DateTime? PickedUpAt
+  +DateTime? DeliveredAt
+}
+
+Category "1" --> "*" Food
+Restaurant "1" --> "*" Food
+Passenger "1" --> "1" Wallet
+Passenger "1" --> "1" Cart
+Passenger "1" --> "*" Ticket
+Passenger "1" --> "*" Order
+Wallet "1" --> "*" Transaction
+Cart "1" --> "*" CartItem
+CartItem "*" --> "1" Food
+Train "1" --> "*" TrainStop
+Ticket "*" --> "1" Train
+Ticket --> TrainStop : FromStop
+Ticket --> TrainStop : ToStop
+Order "1" --> "*" OrderItem
+OrderItem "*" --> "1" Food
+Order --> Passenger
+Order --> Ticket
+Order --> Restaurant
+Order --> DeliveryPerson
+Order "1" --> "0..1" Delivery
+Delivery --> DeliveryPerson
+@enduml

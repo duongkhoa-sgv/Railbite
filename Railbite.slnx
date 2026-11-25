@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Railbite.Api/Railbite.Api.csproj" />
+    <Project Path="src/Railbite.Application/Railbite.Application.csproj" />
+    <Project Path="src/Railbite.Domain/Railbite.Domain.csproj" />
+    <Project Path="src/Railbite.Infrastructure/Railbite.Infrastructure.csproj" />
+  </Folder>
+</Solution>

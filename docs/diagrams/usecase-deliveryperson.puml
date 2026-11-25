@@ -1,0 +1,32 @@
+@startuml RailbiteDeliveryPersonUseCases
+title Railbite — Delivery Person Use Cases
+left to right direction
+
+actor "Delivery Person" as D
+
+rectangle "Railbite — Delivery Person Module" {
+  usecase "Login" as UC0
+  usecase "View Pending Orders" as UC1
+  usecase "View Order Details" as UC2
+  usecase "View Passenger Details" as UC3
+  usecase "View Train Details" as UC4
+  usecase "View Drop Details" as UC5
+  usecase "Update Delivery Status" as UC6
+  usecase "Location Updates\n(Future Work)" as UC7
+}
+
+D --> UC0
+D --> UC1
+
+UC1 ..> UC2
+UC2 ..> UC3
+UC2 ..> UC4
+UC2 ..> UC5
+UC2 ..> UC6
+D ..> UC7
+
+note bottom of UC7
+  Out of MVP scope (5-day sprint).
+  Documented as future work.
+end note
+@enduml

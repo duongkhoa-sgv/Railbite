@@ -1,0 +1,74 @@
+@startuml RailbiteArchitecture
+title Railbite — System Architecture
+
+skinparam componentStyle rectangle
+
+actor "Passenger" as Passenger
+actor "Restaurant Staff\n(Admin merged)" as Restaurant
+actor "Delivery Person" as Delivery
+
+package "Flutter Mobile App (Android)" {
+  [Auth & Profile] as AuthUI
+  [Home & Availability] as HomeUI
+  [Food Catalog & Cart] as FoodUI
+  [Ticket, Order & Payment] as OrderUI
+  [Delivery App] as DeliveryUI
+  [Admin Screens] as AdminUI
+  [API Client\n(Dio + JWT Interceptor)] as ApiClient
+}
+
+package "ASP.NET Core API (net10.0)" {
+  [Auth Controller] as AuthApi
+  [Trains & Availability] as TrainApi
+  [Foods / Cart / Wallet] as CatalogApi
+  [Orders & Tickets] as OrderApi
+  [Deliveries] as DeliveryApi
+  [Admin Controllers] as AdminApi
+  [JWT Authentication\nMiddleware] as Jwt
+}
+
+package "Infrastructure" {
+  [EF Core 10\nAppDbContext (TPT)] as Ef
+  database "SQL Server Express\nDatabase: Railbite" as Db
+}
+
+Passenger --> AuthUI
+Passenger --> HomeUI
+Passenger --> FoodUI
+Passenger --> OrderUI
+Restaurant --> AuthUI
+Restaurant --> AdminUI
+Delivery --> DeliveryUI
+
+AuthUI --> ApiClient
+HomeUI --> ApiClient
+FoodUI --> ApiClient
+OrderUI --> ApiClient
+DeliveryUI --> ApiClient
+AdminUI --> ApiClient
+
+ApiClient --> Jwt : REST / JSON
+Jwt --> AuthApi
+Jwt --> TrainApi
+Jwt --> CatalogApi
+Jwt --> OrderApi
+Jwt --> DeliveryApi
+Jwt --> AdminApi
+
+AuthApi --> Ef
+TrainApi --> Ef
+CatalogApi --> Ef
+OrderApi --> Ef
+DeliveryApi --> Ef
+AdminApi --> Ef
+
+Ef --> Db
+
+note right of Db
+  Tables (TPT):
+  Users / Passengers / Restaurants / DeliveryPersons
+  Categories / Foods / Trains / TrainStops
+  Carts / CartItems / Wallets / Transactions
+  Tickets / Orders / OrderItems / Deliveries
+end note
+@enduml

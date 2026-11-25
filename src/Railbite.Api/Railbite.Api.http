@@ -1,0 +1,6 @@
+@Railbite.Api_HostAddress = http://localhost:5203
+
+GET {{Railbite.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

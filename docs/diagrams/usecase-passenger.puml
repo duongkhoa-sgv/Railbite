@@ -1,0 +1,55 @@
+@startuml RailbitePassengerUseCases
+title Railbite — Passenger Use Cases
+left to right direction
+
+actor "Passenger" as P
+
+rectangle "Railbite — Passenger Module" {
+  usecase "Register" as UC1
+  usecase "Login" as UC2
+  usecase "View / Update Profile" as UC3
+  usecase "Change Password" as UC4
+
+  usecase "Check Train & Drop Station\nAvailability" as UC5
+  usecase "Browse / Search / Filter Food" as UC6
+  usecase "View Food Details" as UC7
+  usecase "Add to Cart" as UC8
+  usecase "View / Remove Cart Items" as UC9
+
+  usecase "Upload Ticket Details\n& Confirm Train" as UC10
+  usecase "Proceed to Payment\n(Wallet)" as UC11
+  usecase "Place Order" as UC12
+
+  usecase "View Orders" as UC13
+  usecase "Track Order" as UC14
+  usecase "Cancel Order" as UC15
+  usecase "View Transactions\n(Debit / Credit)" as UC16
+}
+
+P --> UC1
+P --> UC2
+P --> UC3
+P --> UC4
+P --> UC5
+P --> UC6
+P --> UC7
+P --> UC8
+P --> UC9
+P --> UC10
+P --> UC11
+P --> UC12
+P --> UC13
+P --> UC14
+P --> UC15
+P --> UC16
+
+UC5 ..> UC6 : <<include>>\nwhen available
+UC6 ..> UC7
+UC7 ..> UC8
+UC8 ..> UC9
+UC9 ..> UC11
+UC10 ..> UC12
+UC11 ..> UC12
+UC12 ..> UC13
+UC13 ..> UC14
+@enduml

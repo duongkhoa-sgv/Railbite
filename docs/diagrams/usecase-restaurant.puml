@@ -1,0 +1,56 @@
+@startuml RailbiteRestaurantUseCases
+title Railbite — Restaurant (Admin) Use Cases
+left to right direction
+
+actor "Restaurant Staff\n(Admin merged)" as R
+
+rectangle "Railbite — Restaurant Module" {
+  usecase "Login" as UC0
+
+  usecase "Manage Food" as UC1
+  usecase "Add / Update / Delete / View Food" as UC1a
+  usecase "Enable / Disable Food" as UC1b
+  usecase "Set Food Preparation Time" as UC1c
+
+  usecase "View Pending Orders" as UC2
+  usecase "Approve / Reject / Cancel Order" as UC3
+  usecase "Assign Delivery Person" as UC4
+  usecase "Update Order Status" as UC5
+
+  usecase "View Today's Orders" as UC6
+  usecase "View All Orders" as UC7
+  usecase "Filter Orders by Date" as UC8
+
+  usecase "Manage Delivery Person" as UC9
+  usecase "Add / Update / Delete / View\nDelivery Person" as UC9a
+
+  usecase "Manage Trains" as UC10
+  usecase "Add / Update / Delete / View Train" as UC10a
+
+  usecase "Manage Stops" as UC11
+  usecase "Add / Update / Delete / View Stops\n(Delivery / Arrival Time)" as UC11a
+}
+
+R --> UC0
+R --> UC1
+R --> UC2
+R --> UC6
+R --> UC7
+R --> UC9
+R --> UC10
+R --> UC11
+
+UC1 <.. UC1a : <<extend>>
+UC1 <.. UC1b : <<extend>>
+UC1 <.. UC1c : <<extend>>
+
+UC2 ..> UC3
+UC2 ..> UC4
+UC2 ..> UC5
+
+UC7 ..> UC8 : <<extend>>
+
+UC9 <.. UC9a : <<extend>>
+UC10 <.. UC10a : <<extend>>
+UC11 <.. UC11a : <<extend>>
+@enduml

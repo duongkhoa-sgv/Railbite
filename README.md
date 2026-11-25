@@ -49,6 +49,12 @@ docs/diagrams/              5 sơ đồ PlantUML
 
    > Mỗi thành viên tự đặt key riêng. `Jwt:Key` **không** nằm trong `appsettings.json`.
 
+   Cấu hình mật khẩu seed (chỉ dùng khi DB rỗng, lần chạy đầu):
+
+   ```powershell
+   dotnet user-secrets set "Seed:Password" "<mat-khau-seed>" --project src/Railbite.Api
+   ```
+
 3. Áp dụng migration (DB `Railbite` được tạo tự động):
 
    ```powershell
@@ -63,7 +69,9 @@ docs/diagrams/              5 sơ đồ PlantUML
 
    Kiểm tra: `GET http://localhost:5000/health` → `200`.
 
-### Tài khoản seed (mật khẩu `Passw0rd!`)
+### Tài khoản seed
+
+> Mật khẩu do seeder tạo từ `Seed:Password` (user-secrets). Không ghi mật khẩu vào repo. Nếu DB đã có user, seeder không ghi đè mật khẩu.
 
 | Vai trò | Email |
 |---|---|

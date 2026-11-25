@@ -6,7 +6,7 @@ namespace Railbite.Infrastructure.Persistence;
 
 public static class DbSeeder
 {
-    public static async Task SeedAsync(AppDbContext db, CancellationToken ct = default)
+    public static async Task SeedAsync(AppDbContext db, string? seedPassword, CancellationToken ct = default)
     {
         await db.Database.MigrateAsync(ct);
 
@@ -15,7 +15,13 @@ public static class DbSeeder
             return;
         }
 
-        var passwordHash = BCrypt.Net.BCrypt.HashPassword("Passw0rd!");
+        if (string.IsNullOrWhiteSpace(seedPassword))
+        {
+            throw new InvalidOperationException(
+                "Seed:Password is not configured. Run: dotnet user-secrets set \"Seed:Password\" \"<value>\" --project src/Railbite.Api");
+        }
+
+        var passwordHash = BCrypt.Net.BCrypt.HashPassword(seedPassword);
 
         var restaurant = new Restaurant
         {

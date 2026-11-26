@@ -1,0 +1,93 @@
+==============================================================
+RAILBITE - NHIEM VU CON LAI
+Sprint 5 ngay / 4 nguoi (P1-P4) | Cap nhat: 2026-11-25
+Chi liet ke nhiem vu CHUA hoan thanh.
+Quy uoc: moi tinh nang = 1 nhanh feat/<ten>, merge ve main khi build/test OK.
+==============================================================
+
+P1
+  [ ] feat/flutter-auth (FE)
+      Login/register, luu token, role-based router
+      Phu thuoc: Auth API (done)
+  [ ] feat/train-availability (BE)
+      GET trains/stops/availability
+      Phu thuoc: Entity Train/Stop (done)
+  [ ] feat/flutter-home (FE)
+      Home: chon toa/ga, hien thi availability
+      Phu thuoc: feat/train-availability
+  [ ] (integration) Shared model + API client/error handling + router
+      Phu thuoc: BE cac P
+  [ ] (integration) Test golden path end-to-end
+      Phu thuoc: Tat ca
+  [ ] (integration) README/API contract + chuan bi demo
+      Phu thuoc: Tat ca
+
+P2
+  [ ] feat/food-api (BE)
+      Category + food browse (filter/search) + restaurant CRUD (soft-delete)
+      Phu thuoc: Auth (done), Food/Category (done)
+  [ ] feat/flutter-food (FE)
+      Danh sach/chi tiet/tim mon
+      Phu thuoc: feat/food-api
+  [ ] feat/cart-wallet (BE)
+      Cart CRUD, vi, top-up mock, transactions
+      Phu thuoc: Auth (done), Food (done), Wallet (done)
+  [ ] feat/flutter-cart-wallet (FE)
+      Cart + checkout + vi/top-up
+      Phu thuoc: feat/cart-wallet, feat/flutter-food
+
+P3
+  [ ] feat/ticket (BE)
+      Upload anh ticket (URL) + confirm
+      Phu thuoc: Auth (done), Ticket (done)
+  [ ] feat/flutter-ticket (FE)
+      Upload/confirm ticket
+      Phu thuoc: feat/ticket
+  [ ] feat/ticket-order (BE)
+      Tao/huy don; restaurant duyet/tu choi/phan cong
+      Phu thuoc: feat/cart-wallet, feat/ticket, feat/food-api, feat/admin-crud
+  [ ] feat/flutter-restaurant (FE)
+      Quan ly don + assign delivery
+      Phu thuoc: feat/ticket-order
+  [ ] feat/order-tracking (BE)
+      Polling trang thai + lich su don
+      Phu thuoc: feat/ticket-order
+  [ ] feat/flutter-tracking (FE)
+      Theo doi don (polling) + lich su
+      Phu thuoc: feat/order-tracking
+
+P4
+  [ ] feat/delivery-api (BE)
+      Danh sach duoc giao + cap nhat trang thai
+      Phu thuoc: feat/ticket-order
+  [ ] feat/flutter-delivery (FE)
+      Cap nhat trang thai giao
+      Phu thuoc: feat/delivery-api
+  [ ] feat/admin-crud (BE)
+      CRUD trains/stops/delivery-persons
+      Phu thuoc: Entity (done)
+  [ ] feat/flutter-admin (FE)
+      CRUD trains/stops/delivery-persons
+      Phu thuoc: feat/admin-crud
+
+==============================================================
+TONG: 17 nhanh feature + 3 viec tich hop = 20 nhiem vu
+  P1: 3 + 3 tich hop | P2: 4 | P3: 6 | P4: 4
+==============================================================
+
+THU TU DE XUAT
+  1. sync main (dang cham 79cd4e4) + xoa nhanh da merge (local/remote)
+  2. feat/food-api (hoac feat/train-availability)
+  3. feat/flutter-food -> feat/cart-wallet -> feat/flutter-cart-wallet
+  4. feat/ticket -> feat/ticket-order -> feat/admin-crud
+  5. feat/delivery-api -> feat/order-tracking
+  6. Cac Flutter con lai
+  7. Integration + E2E golden path + docs/demo
+
+GHI CHU
+  - Mat khau seed: user-secrets "Seed:Password" (khong ghi vao repo)
+    dotnet user-secrets set "Seed:Password" "<value>" --project src/Railbite.Api
+  - JWT key: user-secrets "Jwt:Key"
+    dotnet user-secrets set "Jwt:Key" "<value>" --project src/Railbite.Api
+  - Flutter goi API qua http://10.0.2.2:5000/api/v1 (emulator Android)
+  - Tai khoan seed: passenger@railbite.local, restaurant@railbite.local, delivery@railbite.local

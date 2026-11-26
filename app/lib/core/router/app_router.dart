@@ -4,6 +4,7 @@ import 'package:material_ui/material_ui.dart';
 import '../../features/auth/screens/login_screen.dart';
 import '../../features/auth/screens/register_screen.dart';
 import '../../features/auth/state/auth_provider.dart';
+import '../../features/home/screens/home_screen.dart';
 import '../../features/home/screens/role_home_page.dart';
 
 GoRouter createRouter(AuthProvider auth) {
@@ -43,7 +44,7 @@ GoRouter createRouter(AuthProvider auth) {
       ),
       GoRoute(
         path: '/home',
-        builder: (context, state) => const RoleHomePage(role: 'Passenger'),
+        builder: (context, state) => const HomeScreen(),
       ),
       GoRoute(
         path: '/restaurant',
